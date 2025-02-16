@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calcular IMC</title>
+    <link rel="stylesheet" href="styles/imc_styles.css">
+</head>
+<body>
+    <main>
+        <section class="imc-container">
+            <h2>Calculadora de IMC</h2>
+            <form id="imcForm">
+                <div class="form-group">
+                    <label for="peso">Peso (kg):</label>
+                    <input type="number" id="peso" name="peso" step="0.1" required>
+                </div>
+                <div class="form-group">
+                    <label for="altura">Altura (m):</label>
+                    <input type="number" id="altura" name="altura" step="0.01" required>
+                </div>
+                <button type="submit">Calcular IMC</button>
+            </form>
+
+            <section id="resultado"></section>
+
+            <div class="button-container">
+                <button id="resetIMC">Resetear Datos</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2025 Calculadora Fitness - Trabajo realizado por Balot Luciano.</p>
+    </footer>
+
+    <script src="scripts/imc.js"></script>
+</body>
+</html>

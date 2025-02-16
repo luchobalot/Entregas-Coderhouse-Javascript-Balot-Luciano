@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Calorías</title>
+    <link rel="stylesheet" href="styles/calorias_styles.css">
+</head>
+
+<body>
+    <main>
+        <section class="calorias-container">
+            <h2>Calculadora de Calorías</h2>
+
+            <form id="caloriasForm">
+                <label for="peso">Peso (kg):</label>
+                <input type="number" id="peso" name="peso" step="0.1" required>
+
+                <label for="altura">Altura (cm):</label>
+                <input type="number" id="altura" name="altura" step="0.1" required>
+
+                <label for="edad">Edad:</label>
+                <input type="number" id="edad" name="edad" required>
+
+                <h3>Sexo</h3>
+                <div class="opciones" id="sexo-opciones">
+                    <div class="opcion" data-valor="M">Masculino</div>
+                    <div class="opcion" data-valor="F">Femenino</div>
+                </div>
+
+                <h3>Nivel de Actividad</h3>
+                <div class="opciones" id="actividad-opciones">
+                    <div class="opcion" data-valor="1">Sedentario</div>
+                    <div class="opcion" data-valor="2">Ligero</div>
+                    <div class="opcion" data-valor="3">Moderado</div>
+                    <div class="opcion" data-valor="4">Intenso</div>
+                </div>
+
+                <h3>Objetivo</h3>
+                <div class="opciones" id="objetivo-opciones">
+                    <div class="opcion" data-valor="1">Perder grasa</div>
+                    <div class="opcion" data-valor="2">Mantener peso</div>
+                    <div class="opcion" data-valor="3">Ganar músculo</div>
+                </div>
+
+                <button type="submit">Calcular</button>
+            </form>
+
+            <section id="resultado" class="oculto">
+                <h3>Resultados</h3>
+                <p id="calorias"></p>
+                <button id="resetCalorias">Resetear</button>
+            </section>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2025 Calculadora Fitness - Trabajo realizado por Balot Luciano.</p>
+    </footer>
+
+    <script src="scripts/calorias.js"></script>
+</body>
+
+</html>
