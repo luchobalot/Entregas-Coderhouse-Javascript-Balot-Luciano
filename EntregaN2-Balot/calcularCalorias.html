@@ -11,7 +11,7 @@
 <body>
     <main>
         <section class="calorias-container">
-            <h2>Calculadora de Calorías</h2>
+            <h2>Calculadora Consumo de Calorías</h2>
 
             <form id="caloriasForm">
                 <label for="peso">Peso (kg):</label>
@@ -29,7 +29,7 @@
                     <div class="opcion" data-valor="F">Femenino</div>
                 </div>
 
-                <h3>Nivel de Actividad</h3>
+                <h3>Nivel de Actividad:</h3>
                 <div class="opciones" id="actividad-opciones">
                     <div class="opcion" data-valor="1">Sedentario</div>
                     <div class="opcion" data-valor="2">Ligero</div>
@@ -37,18 +37,18 @@
                     <div class="opcion" data-valor="4">Intenso</div>
                 </div>
 
-                <h3>Objetivo</h3>
+                <h3>Objetivo:</h3>
                 <div class="opciones" id="objetivo-opciones">
                     <div class="opcion" data-valor="1">Perder grasa</div>
                     <div class="opcion" data-valor="2">Mantener peso</div>
-                    <div class="opcion" data-valor="3">Ganar músculo</div>
+                    <div class="opcion" data-valor="3">Ganar masa muscular</div>
                 </div>
 
                 <button type="submit">Calcular</button>
             </form>
 
             <section id="resultado" class="oculto">
-                <h3>Resultados</h3>
+                <h3 class="resultado-title">Resultado:</h3>
                 <p id="calorias"></p>
                 <button id="resetCalorias">Resetear</button>
             </section>

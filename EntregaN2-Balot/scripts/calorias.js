@@ -1,4 +1,4 @@
-// Clase para manejar los cálculos de calorías
+// Clase que maneja los calculos de las calorías necesarias
 class CalculadoraCalorias {
     constructor() {
         this.factoresActividad = {
@@ -15,13 +15,15 @@ class CalculadoraCalorias {
         };
     }
 
+    // Cálculo de la Tasa Metabólica Basal (TMB)
     calcularTMB(datos) {
         const { peso, altura, edad, sexo } = datos;
         return sexo === 'M' 
             ? (10 * peso + 6.25 * altura - 5 * edad + 5)
-            : (10 * peso + 6.25 * altura - 5 * edad - 161);
+            : (10 * peso + 6.25 * altura - 5 * edad - 161); // Si es mujer (F), uso otra fórmula con un valor de ajuste de -161.
     }
 
+    // Calculo del Gasto Energetico Total (GCT)
     calcularGCT(tmb, nivelActividad) {
         return tmb * this.factoresActividad[nivelActividad].valor;
     }
@@ -31,7 +33,7 @@ class CalculadoraCalorias {
     }
 }
 
-// Clase para manejar el almacenamiento
+// Clase para manejar el localStorage y guardar los datos del usuario
 class AlmacenamientoDatos {
     constructor() {
         this.key = 'datosUsuario';
@@ -105,14 +107,12 @@ class InterfazUsuario {
                 objetivo: datosGuardados.objetivo
             };
 
-            // Cargar inputs
             ['peso', 'altura', 'edad'].forEach(campo => {
                 if (datosGuardados[campo]) {
                     document.getElementById(campo).value = datosGuardados[campo];
                 }
             });
 
-            // Cargar opciones seleccionadas
             this.preseleccionarOpcion(this.opcionesSexo, datosGuardados.sexo);
             this.preseleccionarOpcion(this.opcionesActividad, datosGuardados.actividad);
             this.preseleccionarOpcion(this.opcionesObjetivo, datosGuardados.objetivo);
@@ -145,26 +145,63 @@ class InterfazUsuario {
         this.almacenamiento.guardar({ ...datos, ultimoResultado: resultadoTexto });
     }
 
+    mostrarError(mensaje) {
+        const errorAnterior = this.form.querySelector('.error-container');
+        if (errorAnterior) {
+            errorAnterior.remove();
+        }
+
+        const errorContainer = document.createElement('div');
+        errorContainer.className = 'error-container';
+
+        const errorMensaje = document.createElement('div');
+        errorMensaje.className = 'error-mensaje';
+        errorMensaje.textContent = mensaje;
+
+        const closeButton = document.createElement('button');
+        closeButton.className = 'close-btn';
+        closeButton.innerHTML = '✕';
+        closeButton.onclick = () => {
+            errorContainer.remove();
+        };
+
+        errorContainer.appendChild(errorMensaje);
+        errorContainer.appendChild(closeButton);
+
+        this.form.insertBefore(errorContainer, this.form.firstChild);
+    }
+
+    // Validar opciones que pueda ingresar mal el usuario
     validarDatos(datos) {
+        const errores = [];
+
         if (!datos.sexo || !datos.actividad || !datos.objetivo) {
-            this.mostrarError('Por favor, seleccione todas las opciones');
+            errores.push('Por favor, seleccione todas las opciones');
+        }
+        
+        if (isNaN(datos.edad) || datos.edad < 5 || datos.edad > 100) {
+            errores.push('La edad debe estar entre 5 y 100 años');
+        }
+
+        if (isNaN(datos.peso) || datos.peso < 15 || datos.peso > 500) {
+            errores.push('El peso debe estar entre 15 y 500 kg');
+        }
+
+        if (isNaN(datos.altura) || datos.altura < 50 || datos.altura > 220) {
+            errores.push('La altura debe estar entre 50 cm y 220 cm');
+        }
+
+        if (errores.length > 0) {
+            this.mostrarError(errores[0]);
             return false;
         }
+
         return true;
     }
 
     mostrarResultado(texto) {
         this.resultado.classList.remove('oculto');
         this.caloriasElement.textContent = texto;
-    }
-
-    mostrarError(mensaje) {
-        // Implementar mostrar error sin alert
-        const errorDiv = document.createElement('div');
-        errorDiv.className = 'error-mensaje';
-        errorDiv.textContent = mensaje;
-        this.form.insertBefore(errorDiv, this.form.firstChild);
-        setTimeout(() => errorDiv.remove(), 3000);
     }
 
     resetearFormulario() {
@@ -197,7 +234,6 @@ class InterfazUsuario {
     }
 }
 
-// Inicialización de la aplicación
 document.addEventListener('DOMContentLoaded', () => {
     const calculadora = new CalculadoraCalorias();
     const almacenamiento = new AlmacenamientoDatos();

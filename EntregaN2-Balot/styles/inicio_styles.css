@@ -14,6 +14,13 @@
       padding: 0;
       box-sizing: border-box;
   }
+
+  .titulo-inicial {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 3rem;
+      color: var(--color-primary);
+  }
   
   body {
       font-family: 'Poppins', sans-serif;
